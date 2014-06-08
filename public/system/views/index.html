@@ -1,0 +1,80 @@
+<div data-ng-controller="listNoteController">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div ng-show="editPanel" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">
+                    Edit Note
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <form id="createUser" role="form" name="editForm" class="form">
+                        <div class="form-group">
+                            <label for="newNote" class="control-label">
+                                New Note
+                            </label>
+                            <textarea name="newNote" id="newNote" ng-model="newNote" rows="4" required class="form-control" autofocus></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button id="create-btn" type="submit" ng-click="editNote()" class="btn btn-primary pull-right">
+                                Update
+                            </button>
+                            &nbsp;
+                            <button id="create-btn" type="submit" ng-click="editPanel=false;createUserPanel=false" class="btn btn-primary">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-sm-8 col-sm-offset-2">
+        <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="form-group col-xs-8">
+                <div class="alert alert-success alert-dismissable" ng-show="editSuccess">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Note Updated Successfully!!!
+                </div>
+            </div>
+            <div class="form-group col-xs-8">
+                <div class="alert alert-success alert-dismissable" ng-show="deleteSuccess">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Note Deleted Successfully!!!
+                </div>
+            </div>
+            <div class="form-group col-xs-8">
+                <div class="alert alert-warning alert-dismissable" ng-show="listZero">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                   Note list is Empty. Please add Note.!
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" ng-hide="tableHide">
+            <div class="panel panel-info table-bordered">
+                <div class="panel-body">
+                    <table id="dataTableNotes" ng-table="dataTableNotes" show-filter="true" class="table table-bordered table-hover table-striped" >
+                        <tr ng-repeat="list in $data">
+                            <td>
+                            {{ $index + 1 }}
+                            </td>
+                            <td sortable="'Note'" data-title="'Note'" filter="{'note':'text'}">
+                            {{list.note}}
+                            </td>
+                            <td data-title="'Options'">
+                            <button id="create-btn" ng-click="editNote(this, $index)" class="btn btn-primary pull-left">
+                            Edit
+                            </button>
+                            <button id="create-btn" ng-click="delete(this, $index)" class="btn btn-primary btn-danger pull-right">
+                            Delete
+                            </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
