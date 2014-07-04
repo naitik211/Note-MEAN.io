@@ -33,8 +33,7 @@ angular.module('mean.system').controller('listNoteController',
         $scope.editSuccess = false;
         $scope.deleteSuccess = false;
         $scope.listZero = false;
-
-
+//        develop branch update
         //to get list of note from database from note factory query method
         var noteList;
 
