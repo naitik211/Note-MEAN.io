@@ -1,7 +1,6 @@
 //developed by Naitik
 //Develop branch update
 //testing push revert
-//firse try
 'use strict';
 
 angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus',
