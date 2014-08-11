@@ -1,3 +1,4 @@
+//iuyjufhvy
 'use strict';
 
 angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus',
