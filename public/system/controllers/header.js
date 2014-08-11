@@ -1,8 +1,3 @@
-//developed by Naitik
-//Develop branch update
-//testing push revert
-//commit show( yoto 2 push)_
-//working copy 3rd push
 'use strict';
 
 angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus',
