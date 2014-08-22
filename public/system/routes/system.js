@@ -8,8 +8,16 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
 
             // states for my app
             $stateProvider              
-                .state('home', {
+                .state('login', {
                     url: '/',
+                    templateUrl: 'public/system/views/login.html'
+                })
+                .state('register', {
+                    url: '/register',
+                    templateUrl: 'public/system/views/register.html'
+                })
+                .state('home', {
+                    url: '/home',
                     templateUrl: 'public/system/views/index.html'
                 })
                 .state('addNote', {

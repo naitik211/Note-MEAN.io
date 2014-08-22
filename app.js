@@ -1,5 +1,5 @@
 /**
- * Created by Naitik Soni on 08/06/14.
+ * Created by Naitik Soni on.
  */
 'use strict';
 
@@ -28,32 +28,68 @@ console.log('Mean app started on port ' + config.port + ' (' + process.env.NODE_
 
 // Initializing logger
 logger.init(app, passport, mongoose);
+
 var noteSchema = mongoose.Schema({
-    note: String
+    Client_Name : String,
+    Company_Name: String,
+    Phone_Number: String,
+    Email_Address: String,
+    Address: String,
+    City: String,
+    State: String,
+    Country: String,
+    Postal_Code: String
+
 });
 var note = mongoose.model('note',noteSchema);
-// Expose app
-//exports = module.exports = app;
+
+var login = mongoose.Schema({
+    userName: String,
+    password: String
+});
+var logindb = mongoose.model('logindb', login);
+
+
+app.post('/registration', function(req, res){
+    var doc = new logindb({userName:req.body.userName, password:req.body.password});
+    doc.save(function(err){
+        if(err)
+            res.json({result:false});
+        res.json({result:true});
+    });
+});
+
+app.post('/login',function(req,res){
+    logindb.find({userName:req.body.userName, password:req.body.password}).exec(function(err, data){
+        if(err){
+            res.send(false);
+        } else {
+            res.send(data);
+        }
+
+    });
+});
 
 //post request for adding note to database
 // try,catch,finally for differentiate note. is it Math expression or text
+
 app.post('/note',function(req,res){
-    var noteVal = req.body.note;
-    try{
-        var result = eval(noteVal);
-        noteVal = noteVal.concat(' = ' , result);
-    }
-    catch(err){
-        console.log(err);
-    }
-    finally{
-        var doc = new note({note:noteVal})
-        doc.save(function(err){
-            if(err)
-                res.json({result:false});
-            res.json({result:true});
-        });
-    }
+    var doc = new note({
+        Client_Name : req.body.Client_Name,
+        Company_Name: req.body.Company_Name,
+        Phone_Number: req.body.Phone_Number,
+        Email_Address: req.body.Email_Address,
+        Address: req.body.Address,
+        City: req.body.City,
+        State: req.body.State,
+        Country: req.body.Country,
+        Postal_Code: req.body.Postal_Code})
+
+    doc.save(function(err){
+        if(err)
+            res.json({result:false});
+        res.json({result:true});
+    });
 });
 
 //Get request for getting list of notes from database
@@ -66,20 +102,18 @@ app.get('/note',function(req,res){
 //put request for update selected note to database
 // try,catch,finally for differentiate note. is it Math expression or text
 app.put('/note',function(req,res){
-    var noteVal = req.body.newNote ;
-    try{
-        var result = eval(noteVal);
-        noteVal = noteVal.concat(' = ' , result);
-    }
-    catch(err){
-        console.log(err)
-    }
-    finally{
-        note.findByIdAndUpdate(req.body.id, { $set: { note: noteVal}}, function (err, tank) {
-            if (err)  res.send({result:false});
-            res.send({result:true});
-        });
-    }
+        note.findByIdAndUpdate(req.body.id, { $set: { Client_Name : req.body.cn,
+                                                        Company_Name: req.body.cmp,
+                                                        Phone_Number: req.body.pn,
+                                                        Email_Address: req.body.email,
+                                                        Address: req.body.ad,
+                                                        City: req.body.city,
+                                                        State: req.body.state,
+                                                        Country: req.body.country,
+                                                        Postal_Code: req.body.pc} }, function (err, tank) {
+                                                            if (err)  res.send({result:false});
+                                                            res.send({result:true});
+                                                        });
 });
 
 //delete request for deletion of selected note to database

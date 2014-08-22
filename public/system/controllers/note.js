@@ -2,19 +2,48 @@
 
 'use strict';
 
-// Note.js is for Add, Edit and Delete Note using different  controllers and methods
+// Note.js is for Add, Edit and Delete  using different  controllers and methods
 // Created By Naitik Soni
+
+angular.module('mean.system').controller('registerCtrl',
+    function($scope, $rootScope, $timeout, $window,Global, Menus, noteFactory) {
+        $scope.signup = function(){
+            noteFactory.registration.create({userName:$scope.name,password:$scope.password}).$promise.then(function(result){
+                $scope.name='';
+                $scope.password='';
+                if(result.result){
+                    $scope.addSuccess = true;
+                    $timeout(function(){
+                        $scope.addSuccess = false
+                        $window.location.href  = '/';
+                    }, 2000);
+
+                };
+            })
+        }
+    });
+
+
 
 //noteController Controller is for Adding Note
 angular.module('mean.system').controller('noteController',
     function($scope, $rootScope, $timeout, Global, Menus,noteFactory) {
+
         $scope.addNotSuccess = false;
         $('#note').focus();
         //Add Function will execute when add button will clicked
         //it will persist entered Expression or text
         $scope.add = function (){
-            noteFactory.note.create({note:$scope.note}).$promise.then(function(result){
-                $scope.note='';
+            noteFactory.note.create({Client_Name : $scope.cn,
+                Company_Name: $scope.cmp,
+                Phone_Number: $scope.pn,
+                Email_Address: $scope.email,
+                Address: $scope.ad,
+                City: $scope.city,
+                State: $scope.State,
+                Country: $scope.Country,
+                Postal_Code: $scope.pc}).$promise.then(function(result){
+                $scope.cn='';$scope.cmp='';$scope.pn='';$scope.email='';$scope.ad='';$scope.city='';$scope.State='';$scope.Country='';$scope.pc='';
                 $('#note').focus();
                 if(result.result){
                     $scope.addNotSuccess = true;
@@ -33,6 +62,9 @@ angular.module('mean.system').controller('listNoteController',
         $scope.editSuccess = false;
         $scope.deleteSuccess = false;
         $scope.listZero = false;
+        if(localStorage.username === undefined){
+            $window.location.href = '/';
+        }
 //        develop branch update
         //to get list of note from database from note factory query method
         var noteList;
@@ -65,14 +97,32 @@ angular.module('mean.system').controller('listNoteController',
         //updated data it will show in table
         $scope.editNote = function(note,index){
             if(note === void 0){
-                noteFactory.note.put({id:$scope.editData.list._id,newNote:$scope.newNote}).$promise.then(function(result){
+                noteFactory.note.put({id:$scope.editData.list._id,
+                    cn:$scope.cn,
+                    cmp: $scope.cmp,
+                    pn: $scope.pn,
+                    email: $scope.email,
+                    ad:$scope.ad,
+                    city:$scope.city,
+                    state: $scope.State,
+                    country: $scope.Country,
+                    pc : $scope.pc
+                }).$promise.then(function(result){
                     $state.go('home',{},{reload:true});
                 })
             }
             else{
                 $scope.editPanel = true;
                 $scope.editData = note;
-                $scope.newNote = note.list.note;
+                $scope.cn = note.list.Client_Name;
+                $scope.cmp = note.list.Company_Name;
+                $scope.pn = note.list.Phone_Number.toString();
+                $scope.email = note.list.Email_Address;
+                $scope.ad = note.list.Address;
+                $scope.city = note.list.City;
+                $scope.State = note.list.State ;
+                $scope.Country = note.list.Country;
+                $scope.pc = note.list.Postal_Code;
             }
         }
 
@@ -88,6 +138,12 @@ angular.module('mean.system').controller('listNoteController',
                     $timeout(function(){$scope.deleteSuccess = false}, 2000);
                 });
             }
+        }
+
+        //logout functionality
+        $scope.logout = function(){
+            localStorage.clear();
+            $window.location.href='/';
         }
     }
 );

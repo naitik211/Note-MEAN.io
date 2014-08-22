@@ -1,0 +1,31 @@
+<div data-ng-controller="loginCtrl">
+    <div class="row">
+        <div class="col-xs-4"></div>
+        <div class="form-group col-xs-4">
+            <div class="alert alert-danger alert-dismissable" ng-show="authFail">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+               UserName or Password is incorrect!!!
+            </div>
+        </div>
+    </div>
+    <div class="form-box, align center-block" id="page-wrapper" style="width:35%" >
+        <div class="header">Sign In</div>
+        <form method="post" >
+            <div class="body bg-gray">
+                <div class="form-group">
+                    <input type="text" name="userid" ng-model="userName" class="form-control" placeholder="User ID"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" ng-model="password" class="form-control" placeholder="Password"/>
+                </div>
+            </div>
+            <div class="footer">
+                <button type="submit" class="btn bg-olive btn-block" ng-click="login()">Sign me in</button>
+
+                <a ui-sref="register" class="text-center">Register a new membership</a>
+            </div>
+        </form>
+
+
+    </div>
+</div>

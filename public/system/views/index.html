@@ -9,11 +9,77 @@
             <div class="panel-body">
                 <div class="col-sm-10 col-sm-offset-1">
                     <form id="createUser" role="form" name="editForm" class="form">
-                        <div class="form-group">
-                            <label for="newNote" class="control-label">
-                                New Note
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">CLient Name
+                                <span style="color: red">*</span>
                             </label>
-                            <textarea name="newNote" id="newNote" ng-model="newNote" rows="4" required class="form-control" autofocus></textarea>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.cn.$invalid}">
+                                <input name="cn" id="cn" ng-model="cn" required class="form-control" autofocus></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Company Name
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.cmp.$invalid}">
+                                <input name="cmp" id="cmp" ng-model="cmp" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Phone Number
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.pn.$invalid}">
+                                <input name="pn" id="pn" ng-model="pn" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Email Address
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.email.$invalid}">
+                                <input type="email" name="email" id="email" ng-model="email" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Address
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.ad.$invalid}">
+                                <textarea name="ad" id="ad" ng-model="ad" rows="4" required class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">City
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.city.$invalid}">
+                                <input name="city" id="city" ng-model="city" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">State
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.State.$invalid}">
+                                <input name="State" id="State" ng-model="State" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Country
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.Country.$invalid}">
+                                <input name="Country" id="Country" ng-model="Country" required class="form-control"></input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Postal Code
+                                <span style="color: red">*</span>
+                            </label>
+                            <div class="col-md-8" ng-class="{'has-error': addNoteForm.pc.$invalid}">
+                                <input name="pc" id="pc" ng-model="pc" required class="form-control"></input>
+                            </div>
                         </div>
                         <div class="form-group">
                             <button id="create-btn" type="submit" ng-click="editNote()" class="btn btn-primary pull-right">
@@ -29,16 +95,16 @@
             </div>
         </div>
     </div>
+    <div class="btn">
+        <input type="button" class="btn btn-primary" ui-sref="addNote" value="Add new Note"/>
 
-    <div class="row col-sm-8 col-sm-offset-2">
+    </div>
+    <div class="btn">
+        <input type="button" class="btn btn-success" ng-click="logout()" value="logout"/>
+    </div>
+    <div >
         <div class="row">
             <div class="col-xs-4"></div>
-            <div class="form-group col-xs-8">
-                <div class="alert alert-success alert-dismissable" ng-show="editSuccess">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Note Updated Successfully!!!
-                </div>
-            </div>
             <div class="form-group col-xs-8">
                 <div class="alert alert-success alert-dismissable" ng-show="deleteSuccess">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -60,8 +126,32 @@
                             <td>
                             {{ $index + 1 }}
                             </td>
-                            <td sortable="'Note'" data-title="'Note'" filter="{'note':'text'}">
-                            {{list.note}}
+                            <td sortable="'Note'" data-title="'Client_Name'" filter="{'Client_Name':'text'}">
+                            {{list.Client_Name}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Company_Name'" filter="{'Company_Name':'text'}">
+                                {{list.Company_Name}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Phone_Number'" filter="{'Phone_Number':'text'}">
+                                {{list.Phone_Number}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Email_Address'" filter="{'Email_Address':'text'}">
+                                {{list.Email_Address}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Address'" filter="{'Address':'text'}">
+                                {{list.Address}}
+                            </td>
+                            <td sortable="'Note'" data-title="'City'" filter="{'City':'text'}">
+                                {{list.City}}
+                            </td>
+                            <td sortable="'Note'" data-title="'State'" filter="{'State':'text'}">
+                                {{list.State}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Country'" filter="{'Country':'text'}">
+                                {{list.Country}}
+                            </td>
+                            <td sortable="'Note'" data-title="'Postal_Code'" filter="{'Postal_Code':'text'}">
+                                {{list.Postal_Code}}
                             </td>
                             <td data-title="'Options'">
                             <button id="create-btn" ng-click="editNote(this, $index)" class="btn btn-primary pull-left">
